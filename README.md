@@ -21,12 +21,14 @@ Read through the code to familiarize yourself with the codebase. Then, with a pa
 1. ...
 2. ...
 
-
+<!-- AM: Thoughts on moving the Axios discussion to when it comes time to use the API? -->
 ## An Aside: Axios
 Axios is a node module commonly used with React to send HTTP requests to an API. It functions much like jQuery's Ajax method. Some benefits to using Axios:
 - It is a promise-based library which allows for a simpler and cleaner syntax
 - It is lightweight and focused solely on handling HTTP requests (as opposed to jQuery which brings in an extensive set of new functions and methods)
 - It is flexible and has a number of very useful methods for doing more complex requests from one or multiple API endpoints
+
+<!-- AM: Insert a note somewhere that Axios is not the only library we can use here. Fetch and jQuery also get the job done. -->
 
 [Axios Documentation](https://github.com/mzabriskie/axios)
 
@@ -115,13 +117,17 @@ render() {
 ```
 > - **Router** - the root component inside of which all `Link`'s and `Route`'s must be nested. It can only have **one** direct child element (thus the need for the enclosing `div` tag around `nav` and `main`)
 
+<!-- AM: Not sure if you need to say this in the lesson plan or just on-the-fly, but you can reference <Link /> in a component that does not use <Router> (i.e., the Stock component in the lab) -->
 
 > - **Link** - a component for setting the URL and providing navigation between different components in our app without triggering a page refresh (similar to Angular ui-router's `ui-sref`). It takes one property, `to`, which sets the URL to whatever path is defined within it.
 
+<!-- AM: `to=`, as we discussed earlier, can take more than just the path. Not sure if/when/where is the best time to mention that. -->
 
 > - **Route** - a component that connects a certain `path` in the URL with the relevant component to `render` at that location (similar to Angular ui-router's `ui-view` or erb's `yield`)
 
 Now let's customize this structure to provide a link to our current component `SearchContainer`:
+
+<!-- AM: Is it possible to see react-router in action before you pass all of those methods into `SearchContainer`? If not that's okay, but we're throwing a lot of code at them on step one. -->
 ```js
 render() {
   return (
@@ -157,6 +163,8 @@ render() {
 > Another benefit of using a callback in the render prop is that it preserves context, allowing us to pass down data and functions into `SearchContainer` in the same way as we have done previously.
 
 ## You do: Set up React Router and Add a Second Route
+
+<!-- AM: Separate these instructions into bulletpoints. This is a big chunk of text with a lot of instructions. -->
 Using the above instructions as a guide, set up React Router in your own application. Once you have the setup described above, create a new component named `Results`, import it into `App.js`, and set up a `Link` and `Route` for it in `App's` render method. Have the `Results` component simply display the `translation` property in `App`'s state. Finally, remove the `translation` data from the `SearchContainer` component (as we are now rendering it in `Results`).
 
 <details>
@@ -249,6 +257,7 @@ import {
 } from 'react-router-dom'
 ```
 
+<!-- AM: "happen" -> "happens" -->
 We only want to redirect **after** the user has searched and the data has come back from the API. Fortunately, we already have a method that fires when this happen (`handleSearchSubmit()`). Let's update the promise on `handleSearchSubmit()` to set a new property on `state` that we can use to see if a user has searched.
 
 ```js
@@ -370,6 +379,8 @@ class Results extends Component {
 
 export default Results
 ```
+
+<!-- AM: At some point I would include a footnote about where in the component cycle it is best to make API calls that need to happen on component load (i.e., componentDidMount). No need to focus on it in class though, can say doing it in the constructor is fine for now. -->
 
 Now we can navigate back and forth between `/results` and `/search` seamlessly.
 
